@@ -40,9 +40,9 @@ namespace ejercicioTelegrama
             //Leo el telegrama
             textoTelegrama = txtTelegrama.Text;
             // telegrama urgente?
-            if (chkUrgente.Checked)
+            if (radioUrgente.Checked)
                 tipoTelegrama = 'u';
-            else
+            else if(radioOrdinario.Checked)
                 tipoTelegrama = 'o';
             //Obtengo el número de palabras que forma el telegrama
             numPalabras = ContarPalabras(textoTelegrama);
@@ -62,6 +62,11 @@ namespace ejercicioTelegrama
             else
                 coste = 0;
             txtPrecio.Text = coste.ToString() + " euros";
+
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
 
         }
     }

@@ -22,6 +22,15 @@ namespace ejercicioTelegrama
 
         }
 
+        static int ContarPalabras(string input)
+        {
+            // Divide el string en palabras utilizando el espacio como delimitador
+            string[] palabras = input.Split(new char[] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+
+            // Devuelve la cantidad de palabras
+            return palabras.Length;
+        }
+
         private void btnCalcularprecio_Click(object sender, EventArgs e)
         {
             string textoTelegrama;
@@ -32,43 +41,28 @@ namespace ejercicioTelegrama
             textoTelegrama = txtTelegrama.Text;
             // telegrama urgente?
             if (chkUrgente.Checked)
-            {
                 tipoTelegrama = 'u';
-            }
+            else
+                tipoTelegrama = 'o';
             //Obtengo el número de palabras que forma el telegrama
-            numPalabras = textoTelegrama.Length;
+            numPalabras = ContarPalabras(textoTelegrama);
             //Si el telegrama es ordinario
             if (tipoTelegrama == 'o')
-            {
                 if (numPalabras <= 10)
-                {
                     coste = 2.5;
-                }
                 else
-                {
-                    coste = 0.5 * numPalabras;
-                }
-            }
+                    coste = 2.5 + 0.5 * (numPalabras - 10);
             else
-            //Si el telegrama es urgente
-            {
+                //Si el telegrama es urgente
                 if (tipoTelegrama == 'u')
-                {
-                    if (numPalabras <= 10)
-                    {
-                        coste = 5;
-                    }
-                    else
-                    {
-                        coste = 5 + 0.75 * (numPalabras - 10);
-                    }
-                }
+                if (numPalabras <= 10)
+                    coste = 5;
                 else
-                {
-                    coste = 0;
-                }
-            }
+                    coste = 5 + 0.75 * (numPalabras - 10);
+            else
+                coste = 0;
             txtPrecio.Text = coste.ToString() + " euros";
+
         }
     }
 }
